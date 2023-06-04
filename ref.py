@@ -29,7 +29,9 @@ def recieve():
   images = data['images']
   indices = data['indices']
 
-  text = {}
+  print(images)
+  print(indices)
+
   speechifying_this = ""
 
   for i in indices:
@@ -45,9 +47,10 @@ def recieve():
     ocr = pytesseract.image_to_string(img)
 
     ocr = ocr.replace("\n", " ")
+
     speechifying_this += ocr
 
-    os.remove(path)
+    print(speechifying_this)
 
   file_path = f"reading_{random.randint(0, 100000)}.wav"
 
@@ -63,6 +66,11 @@ def recieve():
   #text['audio'] = audio_data
 
   #return json.dumps(text)
+
+@app.route("/test", methods = ['GET', 'POST'])
+def test():
+  data = request.get_json()
+  return data
 
 
 if __name__ == "__main__":
