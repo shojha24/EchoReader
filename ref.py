@@ -52,9 +52,6 @@ def recieve():
 
     print(speechifying_this)
 
-  if len(speechifying_this) == 0:
-    speechifying_this = "No text detected"
-
   file_path = f"reading_{random.randint(0, 100000)}.wav"
 
   tts.tts_to_file(text=speechifying_this, speaker=tts.speakers[1], language=tts.languages[0], file_path=file_path)
