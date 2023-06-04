@@ -7,7 +7,7 @@ def convert_to_64(im_path):
         my_string = base64.b64encode(img_file.read()).decode('utf-8')
     return my_string
 
-url = "http://72df-69-119-107-111.ngrok-free.app/get_img"
+url = "http://06d7-69-119-107-111.ngrok-free.app/get_img"
 response = requests.get(url, json={"images": [convert_to_64('credits.png'), convert_to_64('main-qimg-1fbae5cecbe19ab2d69d9282ecf387ed.jfif')], "indices": [0, 1]})
 
 
