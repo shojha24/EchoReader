@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_ngrok import run_with_ngrok
 from flask_cors import CORS
 import base64
@@ -17,12 +17,20 @@ CORS(app, expose_headers='Authorization')
 run_with_ngrok(app)
 app.debug=True
 
+app.config['CORS_AUTOMATIC_OPTIONS'] = True
+
+@app.before_request
+def before_request():
+  if request.method == 'OPTIONS':
+    return '', 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*', 'Access-Control-Allow-Methods': '*'}
+
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\SharabhCode\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 model_name = TTS.list_models()[0]
 tts = TTS(model_name)
 
 @app.route("/get_img", methods = ['GET', 'POST'])
+@cross_origin()
 def recieve():
   data = request.get_json()
 
@@ -74,7 +82,6 @@ def recieve():
 def test():
   data = request.get_json()
   return data
-
 
 if __name__ == "__main__":
   app.run()
