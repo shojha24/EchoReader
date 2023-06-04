@@ -51,6 +51,9 @@ def recieve():
     speechifying_this += ocr
 
     print(speechifying_this)
+  
+  if len(speechifying_this) == 0:
+    speechifying_this = "No text detected"
 
   file_path = f"reading_{random.randint(0, 100000)}.wav"
 
