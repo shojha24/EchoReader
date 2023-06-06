@@ -20,7 +20,7 @@ app.debug=True
 app.config['CORS_AUTOMATIC_OPTIONS'] = True
 
 @app.before_request
-def before_request():
+def before_request(request):
   if request.method == 'OPTIONS':
     return '', 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*', 'Access-Control-Allow-Methods': '*'}
 
