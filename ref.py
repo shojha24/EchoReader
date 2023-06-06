@@ -13,14 +13,14 @@ from TTS.api import TTS
 
 app = Flask(__name__)
 app.config['CORS_HEADERS']='Content-Type'
-CORS(app, expose_headers='Authorization')
-run_with_ngrok(app)
+CORS(app, expose_headers='Authorization', resources={r"/*": {"origins": "*"}})
+#run_with_ngrok(app)
 app.debug=True
 
 app.config['CORS_AUTOMATIC_OPTIONS'] = True
 
 @app.before_request
-def before_request(request):
+def before_request():
   if request.method == 'OPTIONS':
     return '', 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*', 'Access-Control-Allow-Methods': '*'}
 
@@ -33,6 +33,7 @@ tts = TTS(model_name)
 @cross_origin()
 def recieve():
   data = request.get_json()
+  print(data)
 
   images = data['images']
   indices = data['indices']
