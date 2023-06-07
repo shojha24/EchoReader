@@ -14,7 +14,7 @@ from TTS.api import TTS
 app = Flask(__name__)
 app.config['CORS_HEADERS']='Content-Type'
 CORS(app, expose_headers='Authorization', resources={r"/*": {"origins": "*"}})
-#run_with_ngrok(app)
+run_with_ngrok(app)
 app.debug=True
 
 app.config['CORS_AUTOMATIC_OPTIONS'] = True
@@ -60,6 +60,8 @@ def recieve():
     speechifying_this += ocr
 
     print(speechifying_this)
+
+    os.remove(path)
   
   if len(speechifying_this) == 0:
     speechifying_this = "No text detected"
@@ -72,6 +74,8 @@ def recieve():
     audio_data = base64.b64encode(fh.read()).decode('utf-8')
 
   files = {'audio': audio_data, 'text': speechifying_this}
+
+  os.remove(file_path)
 
   return files
 
